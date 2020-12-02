@@ -40,7 +40,8 @@ void test_tape_io2()
 
 void test_tape_verbose()
 {
-    Tape t;
+    char usespace = '-';  // to test cumstomed space, replace it with another
+    Tape t(usespace);
     for (int i = 0; i < 20; i++)
     {
         if (i < 5)
@@ -54,7 +55,7 @@ void test_tape_verbose()
     }
     for (int i = 0; i < 18; i++)
     {
-        t.write(SPACE, RIGHT);
+        t.write(usespace, RIGHT);
         cout << t.verbose(0, 1);
         cout << "------------------" << endl;
     }

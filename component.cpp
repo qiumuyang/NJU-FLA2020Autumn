@@ -10,6 +10,13 @@ string Tape::getTape() const
     return tape;
 }
 
+void Tape::setInput(string input)
+{
+    //if (!tape.empty() || head != 0 || front != 0)  // not initial state
+    //    assert(0);
+    tape = input;
+}
+
 char Tape::read()
 {
     return charAt(head);
@@ -23,7 +30,7 @@ char Tape::charAt(int target)
     {
         return tape[pos];
     }
-    return SPACE;
+    return mspace;
 }
 
 void Tape::write(char symbol, char direc)
@@ -46,7 +53,7 @@ void Tape::write(char symbol, char direc)
         relative_pos = BETWEEN;
     }
     // write tape
-    if (symbol == SPACE)
+    if (symbol == mspace)
     {
         switch (relative_pos)
         {
@@ -55,11 +62,11 @@ void Tape::write(char symbol, char direc)
             // remove spaces
             if (pos == 0)
             {
-                tape = string(tape, tape.find(SPACE));
+                tape = string(tape, tape.find(mspace));
             }
             else if (pos == tape.length() - 1)
             {
-                tape = string(tape, 0, tape.find(SPACE));
+                tape = string(tape, 0, tape.find(mspace));
             }
             break;
         default:  // write SPACE out of tape_string
@@ -76,12 +83,12 @@ void Tape::write(char symbol, char direc)
             break;
         case TO_LEFT:
             padding = front - head - 1;
-            tape = string(1, symbol) + string(padding, SPACE) + tape;
+            tape = string(1, symbol) + string(padding, mspace) + tape;
             front = head;
             break;
         case TO_RIGHT:
             padding = head - end;
-            tape = tape + string(padding, SPACE) + string(1, symbol);
+            tape = tape + string(padding, mspace) + string(1, symbol);
             break;
         default:
             break;

@@ -11,19 +11,17 @@ const string HEAD = "Head";
 class Tape
 {
 private:
+    char mspace;
     string tape;
     int head;   // read-write head
     int front;  // to locate where to write on tape_string
                 // pos = head - front
 public:
-    Tape()
-    {
-        head = 0;
-        front = 0;
-    }
+    Tape(char setspace = SPACE, string input = string()) : mspace(setspace), head(0), front(0), tape(input) {}
 
     int getHead() const;
     string getTape() const;
+    void setInput(string input);
     // return symbol at head on the tape
     char read();
     // return symbol at target on the tape
@@ -40,6 +38,9 @@ public:
     string state;   // old state id
     string symbol;  // current symbol
 
+    TKey() {}
+    TKey(string _state, string _symbol) : state(_state), symbol(_symbol) {}
+
     bool operator<(const TKey &t) const;  // Map Key
     bool operator>(const TKey &t) const;  // Map Key
 };
@@ -50,6 +51,9 @@ public:
     string state;  // new state
     string write;  // symbol to write
     string direc;  // direction
+
+    TValue() {}
+    TValue(string _state, string _write, string _direc) : state(_state), write(_write), direc(_direc) {}
 };
 
 #endif
