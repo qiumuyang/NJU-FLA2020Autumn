@@ -19,4 +19,6 @@ constexpr int TO_LEFT = 1;
 constexpr int TO_RIGHT = 2;
 constexpr int BETWEEN = 3;
 
+const std::string STATUS_SPLITTER = "====================";
+
 #endif
