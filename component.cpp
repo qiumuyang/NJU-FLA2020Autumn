@@ -1,10 +1,25 @@
 #include "component.h"
 
+int Tape::getHead() const
+{
+    return head;
+}
+
+string Tape::getTape() const
+{
+    return tape;
+}
+
 char Tape::read()
 {
+    return charAt(head);
+}
+
+char Tape::charAt(int target)
+{
     int end = front + tape.length();
-    int pos = head - front;
-    if (front <= head && head < end)  // head within tape_string
+    int pos = target - front;
+    if (front <= target && target < end)  // target within tape_string
     {
         return tape[pos];
     }
@@ -90,7 +105,49 @@ void Tape::write(char symbol, char direc)
 
 string Tape::verbose(int tape_index, int tape_cnt)
 {
-    int idx = tape_index;
+    string idx = to_string(tape_index);
+    int width = to_string(tape_cnt - 1).length() + INDEX.length() + 1;
+    stringstream ss_index;
+    stringstream ss_tape;
+    stringstream ss_head;
+    ss_index << setiosflags(ios::left);
+    ss_index << setw(width) << INDEX + idx << ":";
+    ss_tape << setiosflags(ios::left);
+    ss_tape << setw(width) << TAPE + idx << ":";
+    ss_head << setiosflags(ios::left);
+    ss_head << setw(width) << HEAD + idx << ":";
+    int st, ed;
+    int end = front + tape.length();
+    if (front <= head && head < end)
+    {
+        st = front;
+        ed = end;
+    }
+    else if (head < front)
+    {
+        st = head;
+        ed = end;
+    }
+    else
+    {
+        st = front;
+        ed = head + 1;
+    }
+    for (int i = st; i < ed; i++)
+    {
+        string i_str = to_string(abs(i));
+        string head_pivot;
+        if (i == head)
+            head_pivot += "^";
+        width = i_str.length();
+        ss_index << ' ' << setw(width) << i_str;
+        ss_tape << ' ' << setw(width) << charAt(i);
+        ss_head << ' ' << setw(width) << head_pivot;
+    }
+    string index_ln = ss_index.str();
+    string tape_ln = ss_tape.str();
+    string head_ln = ss_head.str();
+    return index_ln + "\n" + tape_ln + "\n" + head_ln + "\n";
 }
 
 bool TKey::operator<(const TKey &t) const
