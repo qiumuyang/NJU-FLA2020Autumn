@@ -4,7 +4,7 @@ char Tape::read()
 {
     int end = front + tape.length();
     int pos = head - front;
-    if (front <= head && head < end) // head within tape_string
+    if (front <= head && head < end)  // head within tape_string
     {
         return tape[pos];
     }
@@ -19,11 +19,17 @@ void Tape::write(char symbol, char direc)
     int padding = 0;
     // judge relative position
     if (head < front)
+    {
         relative_pos = TO_LEFT;
+    }
     else if (head >= end)
+    {
         relative_pos = TO_RIGHT;
+    }
     else
+    {
         relative_pos = BETWEEN;
+    }
     // write tape
     if (symbol == SPACE)
     {
@@ -31,13 +37,22 @@ void Tape::write(char symbol, char direc)
         {
         case BETWEEN:
             tape[pos] = symbol;
+            // remove spaces
+            if (pos == 0)
+            {
+                tape = string(tape, tape.find(SPACE));
+            }
+            else if (pos == tape.length() - 1)
+            {
+                tape = string(tape, 0, tape.find(SPACE));
+            }
             break;
-        default: // write SPACE out of tape_string
+        default:  // write SPACE out of tape_string
             // do nothing
             break;
         }
     }
-    else // normal symbol
+    else  // normal symbol
     {
         switch (relative_pos)
         {
@@ -73,9 +88,9 @@ void Tape::write(char symbol, char direc)
     }
 }
 
-string Tape::verbose(int index)
+string Tape::verbose(int tape_index, int tape_cnt)
 {
-    
+    int idx = tape_index;
 }
 
 bool TKey::operator<(const TKey &t) const

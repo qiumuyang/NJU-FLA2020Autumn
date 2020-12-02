@@ -6,7 +6,7 @@ using namespace std;
 
 class Tape
 {
-public:
+public:        // TODO: make it private
     string tape;
     int head;  // read-write head
     int front; // to locate where to write on tape_string
@@ -18,9 +18,12 @@ public:
         front = 0;
     }
 
+    // return symbol at head on the tape
     char read();
+    // set symbol at head and move head according to direc
     void write(char symbol, char direc);
-    string verbose(int index);
+    // return verbose_string, tape_cnt passed for alignment
+    string verbose(int tape_index, int tape_cnt);
 };
 
 class TKey // to store transition
