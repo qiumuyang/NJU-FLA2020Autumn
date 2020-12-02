@@ -1,0 +1,4 @@
+*.o
+turing
+test
+.vscode/
