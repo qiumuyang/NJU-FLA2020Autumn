@@ -24,6 +24,9 @@ private:
     vector<Tape> tapes;
     map<TKey, TValue> transition;
 
+    string getTapeCombined();
+    void writeTapeCombined(string write, string direc);
+
 public:
     Emulator() : space(SPACE) {}
     void addState(string nstate);
@@ -40,6 +43,10 @@ public:
     bool containsInputSymbol(char symbol);
     bool containsTapeSymbol(char symbol);
     bool containsTransition(string ostate, string input);
+
+    string execute(bool isVerbose = false);
+    string verbose(int step);
+    string result();
 };
 
 #endif
