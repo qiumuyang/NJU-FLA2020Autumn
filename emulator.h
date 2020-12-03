@@ -7,6 +7,7 @@
 #include <vector>
 
 #include "component.h"
+
 using namespace std;
 
 const string STEP_SPLITTER = string(46, '-');
@@ -39,10 +40,11 @@ public:
     void setInput(string input);
     void addTransition(string ostate, string input, string nstate, string write, string direc);
 
-    bool containsState(string nstate);
-    bool containsInputSymbol(char symbol);
-    bool containsTapeSymbol(char symbol);
-    bool containsTransition(string ostate, string input);
+    int getTapeCount() const;
+    bool containsState(string nstate) const;
+    bool containsInputSymbol(char symbol) const;
+    bool containsTapeSymbol(char symbol) const;
+    bool containsTransition(string ostate, string input) const;
 
     string execute(bool isVerbose = false);
     string verbose(int step);

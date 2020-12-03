@@ -60,24 +60,28 @@ void Emulator::addTransition(string ostate, string input, string nstate, string 
     transition[TKey(ostate, input)] = TValue(nstate, write, direc);
 }
 
-bool Emulator::containsState(string nstate)
+int Emulator::getTapeCount() const
+{
+    return tape_cnt;
+}
+bool Emulator::containsState(string nstate) const
 {
     return (states.find(nstate) != states.end());
 }
-bool Emulator::containsInputSymbol(char symbol)
+bool Emulator::containsInputSymbol(char symbol) const
 {
     return (i_symbols.find(symbol) != i_symbols.end());
 }
-bool Emulator::containsTapeSymbol(char symbol)
+bool Emulator::containsTapeSymbol(char symbol) const
 {
     return (t_symbols.find(symbol) != t_symbols.end());
 }
-bool Emulator::containsTransition(string ostate, string input)
+bool Emulator::containsTransition(string ostate, string input) const
 {
     return (transition.find(TKey(ostate, input)) != transition.end());
 }
 
-string Emulator::execute(bool isVerbose = false)
+string Emulator::execute(bool isVerbose)
 {
     int step = 0;
     while (true)

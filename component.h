@@ -2,6 +2,7 @@
 #define __COMPONENT_H__
 
 #include "common.h"
+
 using namespace std;
 
 const string INDEX = "Index";
