@@ -29,4 +29,7 @@ bool isValidDirec(char direc);
 string quote(string q, string s);
 string quote(char q, string s);
 
+int findRightmostFromLeft(string s, char c);
+int findLeftmostFromRight(string s, char c);
+
 #endif

@@ -124,7 +124,6 @@ void Parser::parseTransition(string str)
     if (!emulator.containsState(nstate.str))
         throw TuringException(ILLEGAL_STATE, align + nstate.start, quote(nstate.str, "was not declared in the set of states"));
     int cnt = emulator.getTapeCount();
-    cout << "tape_cnt: " << cnt << endl;
     if (osym.str.length() != cnt)
         throw TuringException(SYNTAX_ERROR, align + osym.start, quote(osym.str, "does not match the number of tapes"));
     if (nsym.str.length() != cnt)

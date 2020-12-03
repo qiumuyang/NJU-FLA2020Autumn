@@ -89,3 +89,26 @@ string quote(char q, string s)
 {
     return "'" + string(1, q) + "' " + s;
 }
+
+int findRightmostFromLeft(string s, char c)
+{
+    int i = 0;
+    if (s[i] != c)
+        return string::npos;
+    while (i < s.length() && s[i] == c)
+    {
+        i++;
+    }
+    return i - 1;
+}
+int findLeftmostFromRight(string s, char c)
+{
+    int i = s.length() - 1;
+    if (s[i] != c)
+        return string::npos;
+    while (i >= 0 && s[i] == c)
+    {
+        i--;
+    }
+    return i + 1;
+}

@@ -41,11 +41,8 @@ int Turing::execute(bool verbose)
             current_line = line;
             parser.parseLine(line);
         }
-        cout << "parse end" << endl;
         emulator = parser.getTuringEmulator();
-        cout << "get emulator" << endl;
         verify_input();
-        cout << "input verified" << endl;
         emulator.setInput(input);
     }
     catch (const TuringException& e)

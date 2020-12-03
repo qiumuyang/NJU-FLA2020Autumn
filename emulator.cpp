@@ -46,6 +46,7 @@ void Emulator::setSpace(char nspace)
 }
 void Emulator::setTape(int cnt)
 {
+    tape_cnt = cnt;
     for (int i = 0; i < cnt; i++)
     {
         tapes.push_back(Tape(space));
@@ -90,10 +91,14 @@ string Emulator::execute(bool isVerbose)
             cout << verbose(step);
         TKey current = TKey(cstate, getTapeCombined());
         if (f_states.find(cstate) != f_states.end())
+        {
             break;  // reach final state
+        }
         auto result = transition.find(current);
         if (result == transition.end())
+        {
             break;  // no next transition
+        }
         TValue next = result->second;
         cstate = next.state;
         writeTapeCombined(next.write, next.direc);
