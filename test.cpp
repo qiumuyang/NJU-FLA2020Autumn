@@ -1,5 +1,5 @@
 #include "common.h"
-#include "component.h"
+#include "turing.h"
 
 void test_tape_io()
 {
@@ -61,8 +61,15 @@ void test_tape_verbose()
     }
 }
 
+void test_turing()
+{
+    Turing turing("tm/palindrome_detector_2tapes.tm", "1001001");
+    cout << turing.execute(true); 
+}
+
+
 int main()
 {
-    test_tape_verbose();
+    test_turing();
     return 0;
 }

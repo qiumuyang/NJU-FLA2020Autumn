@@ -14,15 +14,18 @@ constexpr int BETWEEN = 3;
 
 const std::string STATUS_SPLITTER = "====================";
 
-static const std::string err_msg[] = {"", "illegal input",
+static const std::string err_msg[] = {"",
+                                      "illegal input",
                                       "illegal state",
                                       "illegal symbol",
                                       "syntax error",
-                                      "duplicated exception"};
+                                      "duplicated exception",
+                                      "file not found"};
 constexpr int ILLEGAL_INPUT = 1;
 constexpr int ILLEGAL_STATE = 2;
 constexpr int ILLEGAL_SYMBOL = 3;
 constexpr int SYNTAX_ERROR = 4;
 constexpr int DUPLICATED = 5;
+constexpr int FILE_NOT_FOUND = 6;
 
 #endif

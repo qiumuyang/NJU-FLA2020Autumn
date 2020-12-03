@@ -4,7 +4,7 @@ using namespace std;
 
 void Parser::parseLine(string line)
 {
-    regex reMulti("^#(Q|S|G|F) *= *{ *(.*) *}$");
+    regex reMulti("^#(Q|S|G|F) *= *\\{ *(.*) *\\}$");
     regex reSingle("^#(q0|B|N) *= *(.*)$");
     smatch match;
     if (regex_match(line, match, reMulti))
@@ -22,7 +22,7 @@ void Parser::parseLine(string line)
         parseTransition(line);
     }
 }
-void Parser::parseSingle(string type, string str)
+void Parser::parseMulti(string type, string str)
 {
     vector<Match> ret = split(str, " *, *");
     switch (type[0])
@@ -79,7 +79,7 @@ void Parser::parseSingle(string type, string str)
         assert(0);
     }
 }
-void Parser::parseMulti(string type, string str)
+void Parser::parseSingle(string type, string str)
 {
     char symbol = 0;
     switch (type[0])
@@ -113,7 +113,7 @@ void Parser::parseMulti(string type, string str)
 }
 void Parser::parseTransition(string str)
 {
-    vector<Match> ret = split(str, " *");
+    vector<Match> ret = split(str, " +");
     if (ret.size() != 5)
         throw TuringException(SYNTAX_ERROR, ret.back().start, "transition format - <old state> <old symbols> <new symbols> <directions> <new state>");
     Match ostate = ret[0], nstate = ret[4];
@@ -124,6 +124,7 @@ void Parser::parseTransition(string str)
     if (!emulator.containsState(nstate.str))
         throw TuringException(ILLEGAL_STATE, align + nstate.start, quote(nstate.str, "was not declared in the set of states"));
     int cnt = emulator.getTapeCount();
+    cout << "tape_cnt: " << cnt << endl;
     if (osym.str.length() != cnt)
         throw TuringException(SYNTAX_ERROR, align + osym.start, quote(osym.str, "does not match the number of tapes"));
     if (nsym.str.length() != cnt)
