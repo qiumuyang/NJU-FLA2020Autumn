@@ -10,15 +10,29 @@
 #include <string>
 #include <vector>
 
-constexpr char LEFT = 'l';
-constexpr char RIGHT = 'r';
-constexpr char STAY = '*';
-constexpr char SPACE = '_';  // assume all spaces in this experiment are '_' (FROM MANUAL)
+#include "const.h"
+#include "util.h"
 
-constexpr int TO_LEFT = 1;
-constexpr int TO_RIGHT = 2;
-constexpr int BETWEEN = 3;
+class TuringException : public exception
+{
+private:
+    int m_type;
+    int m_position;
+    std::string m_what;
 
-const std::string STATUS_SPLITTER = "====================";
+public:
+    TuringException(int type, int position, std::string what = std::string()) : m_type(type), m_what(what), m_position(position) {}
+    const char* what() const throw()
+    {
+        return err_msg[m_type].c_str();
+    }
+    const char* what_verbose() const throw()
+    {
+        std::string temp = m_what;
+        if (!temp.empty())
+            temp = ": " + temp;
+        return (err_msg[m_type] + temp).c_str();
+    }
+};
 
 #endif
