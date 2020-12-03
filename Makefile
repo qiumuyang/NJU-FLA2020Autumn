@@ -9,11 +9,8 @@ test: $(CPPTEST)
 	g++ -o test $(CPPTEST)
 	./test
 
-component.o: common.h
-emulator.o: common.h
-
 run: turing
 	./turing palindrome_detector_2tapes.tm
 
 clean:
-	rm -rf $(OBJS) turing
+	rm -rf $(OBJS) turing test
