@@ -81,6 +81,7 @@ void Parser::parseSingle(string type, string str)
 }
 void Parser::parseMulti(string type, string str)
 {
+    char symbol = 0;
     switch (type[0])
     {
     case 'q':
@@ -92,7 +93,7 @@ void Parser::parseMulti(string type, string str)
     case 'B':
         if (str.length() != 1)
             throw TuringException(ILLEGAL_SYMBOL, align, quote(str, "is too long/short"));
-        char symbol = str[0];
+        symbol = str[0];
         if (!isValidTapeSymbol(symbol))
             throw TuringException(ILLEGAL_SYMBOL, align, quote(symbol, "is an invalid character"));
         if (emulator.containsInputSymbol(str[0]))
