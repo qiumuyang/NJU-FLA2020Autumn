@@ -19,6 +19,7 @@ void Parser::parseLine(string line)
     }
     else
     {
+        align = 0;
         parseTransition(line);
     }
 }

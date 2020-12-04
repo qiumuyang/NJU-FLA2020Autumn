@@ -80,12 +80,12 @@ void Turing::handleExceptionPrint(bool verbose, const TuringException& e)
         case ILLEGAL_INPUT:
             cout << e.what_verbose() << endl;
             cout << "Input: " << input << endl;
-            cout << setw(7 + e.position()) << "^" << endl;
+            cout << setw(7 + e.position() + 1) << "^" << endl;
             break;
         default:
             cout << e.what_verbose() << endl;
             cout << "Line: " << current_line << endl;
-            cout << setw(6 + e.position()) << "^" << endl;
+            cout << setw(6 + e.position() + 1) << "^" << endl;
             break;
         }
         cout << STATUS_SPLITTER << " END " << STATUS_SPLITTER << endl;
