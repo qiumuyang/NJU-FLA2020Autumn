@@ -28,4 +28,6 @@ constexpr int SYNTAX_ERROR = 4;
 constexpr int DUPLICATED = 5;
 constexpr int FILE_NOT_FOUND = 6;
 
+const std::string usage = "usage: turing [-v|--verbose] [-h|--help] <tm> <input>";
+
 #endif

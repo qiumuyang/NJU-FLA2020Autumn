@@ -1,4 +1,4 @@
-CPPS = $(shell find ./ -name "*.cpp")
+CPPS = $(shell find ./ -name "*.cpp" -not -name test.cpp)
 CPPTEST = $(shell find ./ -name "*.cpp" -not -name main.cpp)
 OBJS = $(CPPS:.cpp=.o)
 
