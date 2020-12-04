@@ -53,20 +53,35 @@ void Tape::write(char symbol, char direc)
         relative_pos = BETWEEN;
     }
     // write tape
-    if (symbol == mspace)
+    if (tape.empty())
+    {
+        if (symbol != mspace)
+        {
+            tape = string(1, symbol);
+            front = head;
+        }
+    }
+    else if (symbol == mspace)
     {
         switch (relative_pos)
         {
         case BETWEEN:
             tape[pos] = symbol;
             // remove spaces
-            if (pos == 0)
+            if (pos == 0 && tape.length() == 1)
             {
-                tape = string(tape, tape.find(mspace));
+                tape.clear();
+            }
+            else if (pos == 0)
+            {
+                int spacepos = findRightmostFromLeft(tape, mspace);
+                tape = string(tape, spacepos + 1);
+                front += spacepos + 1;
             }
             else if (pos == tape.length() - 1)
             {
-                tape = string(tape, 0, tape.find(mspace));
+                int spacepos = findLeftmostFromRight(tape, mspace);
+                tape = string(tape, 0, spacepos);
             }
             break;
         default:  // write SPACE out of tape_string
@@ -125,7 +140,12 @@ string Tape::verbose(int tape_index, int tape_cnt)
     ss_head << setw(width) << HEAD + idx << ":";
     int st, ed;
     int end = front + tape.length();
-    if (front <= head && head < end)
+    if (tape.empty())
+    {
+        st = head;
+        ed = head + 1;
+    }
+    else if (front <= head && head < end)
     {
         st = front;
         ed = end;

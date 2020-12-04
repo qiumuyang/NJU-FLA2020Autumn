@@ -64,9 +64,28 @@ void test_tape_verbose()
 void test_turing()
 {
     Turing turing("tm/palindrome_detector_2tapes.tm", "1001001");
-    cout << turing.execute(true); 
+    cout << turing.execute(true);
 }
 
+void test_tape_space()
+{
+    Tape t;
+    for (int i = 0; i < 5; i++)
+    {
+        t.write('A' + i, RIGHT);
+        cout << t.verbose(0, 1) << endl;
+    }
+    for (int i = 0; i < 7; i++)
+    {
+        t.write(SPACE, LEFT);
+        cout << t.verbose(0, 1) << endl;
+    }
+    for (int i = 0; i < 7; i++)
+    {
+        t.write('A' + i, LEFT);
+        cout << t.verbose(0, 1) << endl;
+    }
+}
 
 int main()
 {
