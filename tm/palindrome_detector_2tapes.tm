@@ -29,6 +29,8 @@
 0 01 01 ** cp
 0 10 10 ** cp
 0 11 11 ** cp
+0 0_ 0_ ** cp
+0 1_ 1_ ** cp
 0 __ __ ** accept  ; empty input
 
 ; State cp: copy the string to the 2nd tape 
