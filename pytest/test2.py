@@ -4,8 +4,11 @@ import re
 from time import time
 
 
-def get_reference(str):
-    return not not re.match(r'^(a+b+)\1$', str)
+def get_reference(s):
+    match = re.match(r'^(1+)x(1+)=(1+)$', s)
+    if not match:
+        return False
+    return len(match.group(1)) * len(match.group(2)) == len(match.group(3))
 
 
 def gen_testcase(cnt=15, maxlen=15, fixlen=True):
@@ -13,14 +16,17 @@ def gen_testcase(cnt=15, maxlen=15, fixlen=True):
     suc = cnt // 3
     for i in range(cnt - suc):
         length = random.randint(1, maxlen) if not fixlen else maxlen
-        chars = [random.choice(['a', 'b']) for j in range(length)]
+        chars = [random.choice(['1', 'x', '=']) for j in range(length)]
         ret.append(''.join(chars))
     for i in range(suc):
-        length = random.randint(2, maxlen//2) if not fixlen else maxlen
-        alen = random.randint(1, length - 1)
-        blen = length - alen
-        ab = 'a'*alen + 'b'*blen
-        ret.append(ab*2)
+        length = random.randint(1, maxlen) if not fixlen else maxlen
+        maxm = round(length**0.5 - 1)
+        m = random.randint(1, maxm)
+        n = random.randint(1, maxm)
+        m1 = '1'*m
+        n1 = '1'*n
+        mn = '1'*(m*n)
+        ret.append(f'{m1}x{n1}={mn}')
     return ret
 
 
@@ -28,7 +34,7 @@ def make_test(cnt, l):
     tm_sum = 0
     for s in gen_testcase(cnt=cnt, maxlen=l):
         st = time()
-        ret = subprocess.check_output("./turing tm/case1.tm " + s, shell=True)
+        ret = subprocess.check_output("./turing tm/case2.tm " + s, shell=True)
         ed = time()
         tm_sum += ed - st
         ret = str(ret[:-1], encoding='utf8')

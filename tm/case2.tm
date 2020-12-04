@@ -1,7 +1,7 @@
 ; Case 2: 1m x 1n = 1mn (m, n > 0).
 ; Input: a string of 1's, x and =
 
-#Q = {start, m, n, cmp, ml, rclear, rewind3, at, ar, au, ae, rf, ra, rl, rs, re, accept, reject}
+#Q = {start, m, n, cmp, prep, rclear, rewind3, at, ar, au, ae, rf, ra, rl, rs, re, accept, reject}
 
 #F = {accept}
 
@@ -18,7 +18,7 @@
 ; State start
 start ___ ___ *** rf            ; empty input
 start x__ x__ *** rclear
-start =__ ___ *** rclear
+start =__ =__ *** rclear
 start 1__ 1__ *** m
 
 ; State m
@@ -29,17 +29,20 @@ m ___ ___ *** rf
 
 ; State n
 n 1__ __1 r*r n                 ; move n to tape3
-n =__ ___ r** ml                ; n finish, start cmp after pre-process
-n x__ ___ *** rclear
-n ___ ___ *** rclear
+n =__ ___ r** prep              ; n finish, start cmp after pre-process
+n x__ x__ *** rclear
+n ___ ___ *** rf
 
-; State ml
-ml 1__ 1__ *ll cmp
+; State prep
+prep 1__ 1__ *ll cmp
+prep x__ x__ *** rclear
+prep =__ =__ *** rclear
 
 ; State cmp : tape2 has m 1's and tape3 n,
 ;             erase one 1 on tape1 for each m,n on tape2,3
 cmp 111 _11 r*l cmp             ; loop: tape2 outer, tape3 inner
 cmp 1_1 __1 r*l cmp
+cmp _1_ _1_ *l* cmp
 cmp 11_ 11_ *lr rewind3         ; inner loop ends, set head3 back
 cmp ___ ___ *** at              ; mn == m*n, accept
 cmp 1__ 1__ *** rclear          ; more mn than m*n
@@ -52,7 +55,6 @@ cmp =1_ =__ *** rclear
 cmp =_1 =__ *** rclear
 cmp =__ =__ *** rclear
 cmp _11 _11 *** rf              ; less mn than m*n
-cmp _1_ _1_ *** rf
 cmp __1 __1 *** rf
 
 ; State rewind3 : move head3 to rightmost
