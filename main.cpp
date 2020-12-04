@@ -23,7 +23,7 @@ int main(int argc, char *argv[])
         else if (arg == "-h" || arg == "--help")
         {
             cout << usage << endl;
-            break;
+            return 0;
         }
         else if (tm_path.empty())
         {
@@ -44,7 +44,7 @@ int main(int argc, char *argv[])
         invalid_args();
         return -1;
     }
-    
+
     Turing turing(tm_path, input);
     int ret = turing.execute(verbose);
     return ret;
