@@ -20,13 +20,16 @@ static const std::string err_msg[] = {"",
                                       "illegal symbol",
                                       "syntax error",
                                       "duplicated exception",
-                                      "file not found"};
+                                      "file not found",
+                                      "incomplete tm definition"};
+                                      
 constexpr int ILLEGAL_INPUT = 1;
 constexpr int ILLEGAL_STATE = 2;
 constexpr int ILLEGAL_SYMBOL = 3;
 constexpr int SYNTAX_ERROR = 4;
 constexpr int DUPLICATED = 5;
 constexpr int FILE_NOT_FOUND = 6;
+constexpr int INCOMPLETE_TM = 7;
 
 const std::string usage = "usage: turing [-v|--verbose] [-h|--help] <tm> <input>";
 

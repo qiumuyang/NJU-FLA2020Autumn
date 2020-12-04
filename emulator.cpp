@@ -18,6 +18,21 @@ void Emulator::writeTapeCombined(string write, string direc)
         tapes[i].write(write[i], direc[i]);
     }
 }
+void Emulator::checkIntegrity()
+{
+    if (states.empty())
+        throw TuringException(INCOMPLETE_TM, 0, quote("Q", "(set of states) is missing"));
+    if (f_states.empty())
+        throw TuringException(INCOMPLETE_TM, 0, quote("F", "(set of final states) is missing"));
+    if (i_symbols.empty())
+        throw TuringException(INCOMPLETE_TM, 0, quote("S", "(set of input symbols) is missing"));
+    if (t_symbols.empty())
+        throw TuringException(INCOMPLETE_TM, 0, quote("G", "(set of tape symbols) is missing"));
+    if (cstate.empty())
+        throw TuringException(INCOMPLETE_TM, 0, quote("q0", "(start state) is missing"));
+    if (tapes.empty())
+        throw TuringException(INCOMPLETE_TM, 0, quote("N", "(number of tapes) is missing"));
+}
 
 // no error handling here
 void Emulator::addState(string nstate)
@@ -84,6 +99,7 @@ bool Emulator::containsTransition(string ostate, string input) const
 
 string Emulator::execute(bool isVerbose)
 {
+    checkIntegrity();
     int step = 0;
     while (true)
     {

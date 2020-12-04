@@ -75,6 +75,7 @@ void Turing::handleExceptionPrint(bool verbose, const TuringException& e)
         switch (e.type())
         {
         case FILE_NOT_FOUND:
+        case INCOMPLETE_TM:
             cout << e.what_verbose() << endl;
             break;
         case ILLEGAL_INPUT:

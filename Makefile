@@ -9,8 +9,5 @@ test: $(CPPTEST)
 	g++ -o test $(CPPTEST)
 	./test
 
-run: turing
-	./turing palindrome_detector_2tapes.tm
-
 clean:
 	rm -rf $(OBJS) turing test

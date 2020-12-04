@@ -27,6 +27,7 @@ private:
 
     string getTapeCombined();
     void writeTapeCombined(string write, string direc);
+    void checkIntegrity();
 
 public:
     Emulator() : space(SPACE) {}
