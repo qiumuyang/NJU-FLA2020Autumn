@@ -82,11 +82,13 @@ clear1 b_ __ l* clear1
 clear1 __ __ ** rf
 
 ; State rf, ra, rs, rl, re : write 'false'
-rf __ f_ rr ra
-ra __ a_ rr rl
-rl __ l_ rr rs
-rs __ s_ rr re
-re __ e_ rr reject
+rf __ f_ r* ra
+rf _a f_ r* ra
+rf _b f_ r* ra
+ra __ a_ r* rl
+rl __ l_ r* rs
+rs __ s_ r* re
+re __ e_ r* reject
 
 ; State at, ar, au, ae : write 'true'
 at __ t_ rr ar
