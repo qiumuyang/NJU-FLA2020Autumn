@@ -42,6 +42,7 @@ int Turing::execute(bool verbose)
             parser.parseLine(line);
         }
         emulator = parser.getTuringEmulator();
+        emulator.checkIntegrity();
         verify_input();
         emulator.setInput(input);
     }

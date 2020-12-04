@@ -41,7 +41,7 @@ void Emulator::addState(string nstate)
 }
 void Emulator::addFinalState(string nfstate)
 {
-    states.insert(nfstate);
+    f_states.insert(nfstate);
 }
 void Emulator::addInputSymbol(char symbol)
 {
@@ -99,7 +99,6 @@ bool Emulator::containsTransition(string ostate, string input) const
 
 string Emulator::execute(bool isVerbose)
 {
-    checkIntegrity();
     int step = 0;
     while (true)
     {

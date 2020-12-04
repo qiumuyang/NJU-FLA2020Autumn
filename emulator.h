@@ -27,7 +27,6 @@ private:
 
     string getTapeCombined();
     void writeTapeCombined(string write, string direc);
-    void checkIntegrity();
 
 public:
     Emulator() : space(SPACE) {}
@@ -46,6 +45,7 @@ public:
     bool containsInputSymbol(char symbol) const;
     bool containsTapeSymbol(char symbol) const;
     bool containsTransition(string ostate, string input) const;
+    void checkIntegrity();  // should be called by caller
 
     string execute(bool isVerbose = false);
     string verbose(int step);
