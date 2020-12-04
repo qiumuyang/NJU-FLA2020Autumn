@@ -16,6 +16,9 @@ private:
     void parseSingle(string type, string str);
     void parseMulti(string type, string str);
     void parseTransition(string str);
+    void checkMultiDefinition(string component);
+
+    set<string> parsed;
 
 public:
     Parser() {}

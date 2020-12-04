@@ -26,6 +26,7 @@ void Parser::parseLine(string line)
 void Parser::parseMulti(string type, string str)
 {
     vector<Match> ret = split(str, " *, *");
+    checkMultiDefinition(type);
     switch (type[0])
     {
     case 'Q':
@@ -83,6 +84,7 @@ void Parser::parseMulti(string type, string str)
 void Parser::parseSingle(string type, string str)
 {
     char symbol = 0;
+    checkMultiDefinition(type);
     switch (type[0])
     {
     case 'q':
@@ -141,4 +143,15 @@ void Parser::parseTransition(string str)
             throw TuringException(SYNTAX_ERROR, align + direc.start + i, quote(direc.str[i], "is an invalid direction"));
     }
     emulator.addTransition(ostate.str, osym.str, nstate.str, nsym.str, direc.str);
+}
+void Parser::checkMultiDefinition(string component)
+{
+    if (parsed.find(component) == parsed.end())
+    {
+        parsed.insert(component);
+    }
+    else
+    {
+        throw TuringException(SYNTAX_ERROR, 1, quote(component, "is multiple defined"));
+    }
 }
