@@ -13,6 +13,8 @@ private:
     string input;
     vector<string> lines;
     string current_line;
+    vector<int> line_ids;
+    int current_line_id;
 
     Parser parser;
     Emulator emulator;

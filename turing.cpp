@@ -8,12 +8,17 @@ void Turing::load_file()
     if (!in)
         throw TuringException(FILE_NOT_FOUND, 0, quote(file, "open failed"));
     string line;
+    int idx = 0;
     while (getline(in, line))
     {
+        idx++;
         line = removeComment(line);
         line = strip(line);
         if (!line.empty())
+        {
             lines.push_back(line);
+            line_ids.push_back(idx);
+        }
     }
 }
 
@@ -36,10 +41,11 @@ int Turing::execute(bool verbose)
     try
     {
         load_file();
-        for (auto line : lines)
+        for (int i = 0; i < lines.size(); i++)
         {
-            current_line = line;
-            parser.parseLine(line);
+            current_line = lines[i];
+            current_line_id = line_ids[i];
+            parser.parseLine(current_line);
         }
         emulator = parser.getTuringEmulator();
         emulator.checkIntegrity();
@@ -86,8 +92,9 @@ void Turing::handleExceptionPrint(bool verbose, const TuringException& e)
             break;
         default:
             cout << e.what_verbose() << endl;
-            cout << "Line: " << current_line << endl;
-            cout << setw(6 + e.position() + 1) << "^" << endl;
+            string line = "Line " + to_string(current_line_id) + ": ";
+            cout << line << current_line << endl;
+            cout << setw(line.length() + e.position() + 1) << "^" << endl;
             break;
         }
         cout << STATUS_SPLITTER << " END " << STATUS_SPLITTER << endl;
