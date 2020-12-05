@@ -90,7 +90,7 @@ string quote(char q, string s)
     return "'" + string(1, q) + "' " + s;
 }
 
-int findRightmostFromLeft(string s, char c)
+size_t findRightmostFromLeft(string s, char c)
 {
     int i = 0;
     if (s[i] != c)
@@ -101,7 +101,7 @@ int findRightmostFromLeft(string s, char c)
     }
     return i - 1;
 }
-int findLeftmostFromRight(string s, char c)
+size_t findLeftmostFromRight(string s, char c)
 {
     int i = s.length() - 1;
     if (s[i] != c)
