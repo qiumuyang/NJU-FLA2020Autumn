@@ -48,9 +48,21 @@ n ___ ___ *** rf
 
 ; State prep : prepare for cmp
 ;              head2, 3 reach '_', move them left (to '1')
-prep 1__ 1__ *ll cmp
+prep 1__ 1__ *ll prep
+prep 111 111 *** cmp
+prep 11_ 1__ *** rclear         ; m contains at least one
 prep x__ x__ *** rclear
+prep x_1 x__ *** rclear
+prep x1_ x__ *** rclear
+prep x11 x__ *** rclear
 prep =__ =__ *** rclear
+prep =_1 =__ *** rclear
+prep =1_ =__ *** rclear
+prep =11 =__ *** rclear
+prep ___ ___ *** rclear
+prep __1 ___ *** rclear
+prep _1_ ___ *** rclear
+prep _11 ___ *** rclear
 
 ; State cmp : tape2 has m 1's and tape3 n,
 ;             erase one 1 on tape1 for each m,n on tape2,3
