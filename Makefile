@@ -5,9 +5,5 @@ OBJS = $(CPPS:.cpp=.o)
 turing: $(CPPS)
 	g++ -o turing $(CPPS)
 
-test: $(CPPTEST)
-	g++ -o test $(CPPTEST)
-	./test
-
 clean:
-	rm -rf $(OBJS) turing test
+	rm -rf $(OBJS) turing
