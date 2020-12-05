@@ -1,6 +1,19 @@
 ; Case 2: 1m x 1n = 1mn (m, n > 0).
 ; Input: a string of 1's, x and =
 
+; 3 tapes:
+;   1st: input tape
+;   2nd: tape for m
+;   3rd: tape for n
+
+; First, move 1's from tape1 to tape2 until reach 'x'
+; Then,  move 1's from tape1 to tape3 until reach '='
+; Then,  compare tape1 with tape2,3: (head2,3 move from right to left)
+;     - erase one 1 on tape1 and move right head1 when head3 reads one 1, move left head3
+;     - put head3 back to the right end when head3 reaches '_', then move left head2
+;     thus it's an m*n loop
+; Deal with other bad cases during process
+
 #Q = {start, m, n, cmp, prep, rclear, rewind3, at, ar, au, ae, rf, ra, rl, rs, re, accept, reject}
 
 #F = {accept}
@@ -33,7 +46,8 @@ n =__ ___ r** prep              ; n finish, start cmp after pre-process
 n x__ x__ *** rclear
 n ___ ___ *** rf
 
-; State prep
+; State prep : prepare for cmp
+;              head2, 3 reach '_', move them left (to '1')
 prep 1__ 1__ *ll cmp
 prep x__ x__ *** rclear
 prep =__ =__ *** rclear
@@ -67,7 +81,7 @@ rewind3 1__ 1__ **l cmp
 rewind3 _1_ _1_ **l cmp
 rewind3 ___ ___ **l cmp
 
-; State rclear : erase tape1 from left to right, then reject
+; State rclear : erase tape1 from current position to the right end, then reject
 ;                tape2,3 current symbol should be '_'
 rclear 1__ ___ r** rclear
 rclear x__ ___ r** rclear
