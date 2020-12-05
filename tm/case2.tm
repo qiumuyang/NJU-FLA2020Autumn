@@ -14,7 +14,7 @@
 ;     thus it's an m*n loop
 ; Deal with other bad cases during process
 
-#Q = {start, m, n, cmp, prep, rclear, rewind3, at, ar, au, ae, rf, ra, rl, rs, re, accept, reject}
+#Q = {start, m, n, cmp, prep, rclear, rewind3, extra, at, ar, au, ae, rf, ra, rl, rs, re, accept, reject}
 
 #F = {accept}
 
@@ -67,11 +67,11 @@ prep _11 ___ *** rclear
 ; State cmp : tape2 has m 1's and tape3 n,
 ;             erase one 1 on tape1 for each m,n on tape2,3
 cmp 111 _11 r*l cmp             ; loop: tape2 outer, tape3 inner
-cmp 1_1 __1 r*l cmp
-cmp _1_ _1_ *l* cmp
+cmp _1_ ___ *l* extra
 cmp 11_ 11_ *lr rewind3         ; inner loop ends, set head3 back
 cmp ___ ___ *** at              ; mn == m*n, accept
 cmp 1__ 1__ *** rclear          ; more mn than m*n
+cmp 1_1 1__ *** rclear
 cmp x11 x__ *** rclear          ; invalid symbol
 cmp x1_ x__ *** rclear
 cmp x_1 x__ *** rclear
@@ -80,8 +80,13 @@ cmp =11 =__ *** rclear
 cmp =1_ =__ *** rclear
 cmp =_1 =__ *** rclear
 cmp =__ =__ *** rclear
-cmp _11 _11 *** rf              ; less mn than m*n
-cmp __1 __1 *** rf
+cmp _11 ___ *** rf              ; less mn than m*n
+cmp __1 ___ *** rf
+
+; State extra : _1_ 1xn or nx1 will reach _1_, tape2 should be empty after this 1 removed
+;               add this state to judge
+extra ___ ___ *** at
+extra _1_ ___ *** rf
 
 ; State rewind3 : move head3 to rightmost
 rewind3 111 111 **r rewind3
