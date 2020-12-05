@@ -3,13 +3,13 @@
 
 ; 2 tapes
 ;   1st: input tape
-;   2nd: tape for half of input
+;   2nd: tape stores the first half of input
 
 ; First, move the former ab's from tape1 to tape2
-;     - move a until reach b
-;     - move b until reach a
-; Then,  compare the later ab's on tape1 with tape2
-; Before comparison, put head2 back to the left end
+;     - move a until reach b (State mv1)
+;     - move b until reach a (State mv2)
+; Then,  compare the later ab's on tape1 with tape2 (State cmp)
+; Before comparison, put head2 back to the left end (State rewind2)
 ; Deal with other bad cases during process
 
 #Q = {start, mv1, mv2, cmp, rewind2, rclear, at, ar, au, ae, rf, ra, rl, rs, re, accept, reject}
@@ -58,7 +58,7 @@ cmp _a __ ** rf
 cmp _b __ ** rf
 
 ; State rclear : erase tape1 from current position to the right end, then reject
-;                tape2 current symbol should be '_'
+;                [tape2 current symbol should be '_']
 rclear a_ __ r* rclear
 rclear b_ __ r* rclear
 rclear __ __ ** rf
