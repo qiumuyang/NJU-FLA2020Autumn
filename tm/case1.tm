@@ -1,6 +1,17 @@
 ; Case 1: ai bj ai bj (i, j > 0).
 ; Input: a string of a's and b's
 
+; 2 tapes
+;   1st: input tape
+;   2nd: tape for half of input
+
+; First, move the former ab's from tape1 to tape2
+;     - move a until reach b
+;     - move b until reach a
+; Then,  compare the later ab's on tape1 with tape2
+; Before comparison, put head2 back to the left end
+; Deal with other bad cases during process
+
 #Q = {start, mv1, mv2, cmp, rewind2, rclear, at, ar, au, ae, rf, ra, rl, rs, re, accept, reject}
 
 #F = {accept}
