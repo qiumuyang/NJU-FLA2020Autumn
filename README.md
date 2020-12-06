@@ -1,3 +1,7 @@
-### How to Build
+# NJU FLA 2020 TuringMachine-Emulator Project
 
-在 `turing-project/` 目录下执行 `make` 即可在该目录生成 `turing` 可执行文件
+`usage: ./turing [-v|--verbose] [-h|--help] <tm> <input>`
+
+`<tm>`: tm definition file
+
+`<input>`: input of the tm
