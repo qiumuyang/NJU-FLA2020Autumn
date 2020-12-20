@@ -39,7 +39,7 @@ int main(int argc, char *argv[])
             return -1;
         }
     }
-    if (tm_path.empty() || input.empty())
+    if (tm_path.empty())
     {
         invalid_args();
         return -1;
