@@ -1,6 +1,6 @@
 # NJU FLA 2020 TuringMachine-Emulator Project
 
-南京大学2020秋季学期形式语言与自动机(FLA, also PTC for 计算理论初步)大作业
+南京大学2020秋季学期《形式语言与自动机》(前《计算理论初步》)大作业
 
 -----
 
